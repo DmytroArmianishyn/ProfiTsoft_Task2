@@ -7,6 +7,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Dto class for adding Players
+ */
 @Getter
 @Setter
 public class DtoAddPlayer {

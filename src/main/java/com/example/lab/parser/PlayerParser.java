@@ -1,17 +1,11 @@
 package com.example.lab.parser;
 
-import com.example.lab.models.Player;
+
 import com.example.lab.models.dto.DtoAddPlayer;
 import com.example.lab.models.dto.Stat;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 

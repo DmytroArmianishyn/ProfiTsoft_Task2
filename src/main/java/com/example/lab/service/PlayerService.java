@@ -17,6 +17,9 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
+/**
+ * This service class handles the business logic related to players.
+ */
 @Service
 @Slf4j
 public class PlayerService {
@@ -29,6 +32,10 @@ public class PlayerService {
     @Autowired
     ObjectMapper mapper;
 
+    /**
+     * Adds a new player.
+     * @param player The player information to be added.
+     */
     public void add(DtoAddPlayer player){
         Long teamId = player.getTeam_id();
         Team team = teamRepository.findById(teamId);
@@ -37,6 +44,11 @@ public class PlayerService {
         log.info("new row " + player1);
     }
 
+    /**
+     * Retrieves information about a player by ID.
+     * @param id The ID of the player.
+     * @return The information about the player as a JSON string.
+     */
     @SneakyThrows
     public String infPlayer(Long id){
 
@@ -44,6 +56,12 @@ public class PlayerService {
         return mapper.writeValueAsString(player);
     }
 
+    /**
+     * Updates an existing player.
+     * @param id The ID of the player to be updated.
+     * @param playerNew The new information for the player.
+     * @return The updated player information as a JSON string.
+     */
     @SneakyThrows
     public String updatePlayer(Long id,DtoAddPlayer playerNew){
         Team team = teamRepository.findById(playerNew.getTeam_id());
@@ -53,6 +71,11 @@ public class PlayerService {
         return mapper.writeValueAsString(player);
     }
 
+    /**
+     * Reads player information from a multipart file and adds them.
+     * @param multipartFile The multipart file containing player information.
+     * @return A message confirming the successful addition of players.
+     */
     @SneakyThrows
     public  String readPlayers(MultipartFile multipartFile){
         File file = new File(multipartFile.getOriginalFilename());

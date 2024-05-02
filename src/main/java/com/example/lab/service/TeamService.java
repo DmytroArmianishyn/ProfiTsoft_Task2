@@ -1,5 +1,4 @@
 package com.example.lab.service;
-
 import com.example.lab.models.Team;
 import com.example.lab.models.dto.DtoPlayerInf;
 import com.example.lab.models.dto.DtoTeamId;
@@ -14,17 +13,24 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.util.List;
 
-
+/**
+ * This service class provides methods to handle team-related operations.
+ */
 @Service
 public class TeamService {
 
     @Autowired
     TeamRepository teamRepository;
 
+    /**
+     * Adds a new team.
+     * @param teamInf The information of the team to be added.
+     * @return A message indicating the success or failure of the operation.
+     */
     @Autowired
     PlayerRepository repository;
     public String addTeam(DtoTeamInf teamInf){
@@ -38,6 +44,12 @@ public class TeamService {
         return "You create team with duplicate name";
     }
 
+    /**
+     * Updates an existing team.
+     * @param id The ID of the team to be updated.
+     * @param teamInf The new information for the team.
+     * @return A message indicating the success or failure of the operation.
+     */
     public String udateTeam(int id, DtoTeamInf teamInf){
 
         DtoTeamInf teamTmp = teamRepository.findByName(teamInf.getName());
@@ -48,13 +60,23 @@ public class TeamService {
         }
         return "You create team with duplicate name";
     }
-
-    public void makeReport(DtoTeamId team){
+    /**
+     * Generates a report of players in the specified team.
+     * @param team The ID of the team.
+     * @return The byte array representing the Excel file containing the player report.
+     */
+    public byte[] makeReport(DtoTeamId team){
         List<DtoPlayerInf> players = repository.findByTeam(team.getId());
-        report(players);
+         byte[] exelfile = report(players);
+        return exelfile;
     }
+    /**
+     * Generates an Excel report of the players.
+     * @param players The list of players.
+     * @return The byte array representing the Excel file containing the player report.
+     */
     @SneakyThrows
-    public void report(List<DtoPlayerInf> players){
+    public byte[] report(List<DtoPlayerInf> players){
         Workbook wb = new HSSFWorkbook();
         Sheet sheet = wb.createSheet("Players");
         Row row = sheet.createRow(0);
@@ -67,7 +89,6 @@ public class TeamService {
         Cell team = row.createCell(3);
         team.setCellValue("Team");
         sheet.setColumnWidth(0,5000);
-        String[] player = {"Lebron","AD","Russl","Rivers"};
         for (int i = 0; i <players.size() ; i++) {
             Row row1 = sheet.createRow(i+1);
             Cell name1 = row1.createCell(0);
@@ -79,8 +100,13 @@ public class TeamService {
             Cell team1 = row1.createCell(3);
             team1.setCellValue(players.get(i).getTeamName());
         }
-        FileOutputStream out = new FileOutputStream("D:\\Java\\Lab\\src\\main\\resources\\files/test.xls");
+        FileOutputStream out = new FileOutputStream("D:\\Java\\Lab\\profiTsoft_Tsk2\\src\\main\\resources\\files\\test.xls");
         wb.write(out);
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        wb.write(bos);
         wb.close();
+
+        return bos.toByteArray();
+
     }
     }

@@ -5,6 +5,9 @@ import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * The Dto class that provides only some fields
+ */
 @Getter
 @Setter
 public class DtoPlayerInf{

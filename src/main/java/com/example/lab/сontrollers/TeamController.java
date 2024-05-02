@@ -1,8 +1,4 @@
 package com.example.lab.сontrollers;
-
-
-import com.example.lab.models.Team;
-import com.example.lab.models.dto.DtoPlayerInf;
 import com.example.lab.models.dto.DtoTeamInf;
 import com.example.lab.repository.PlayerRepository;
 import com.example.lab.repository.TeamRepository;
