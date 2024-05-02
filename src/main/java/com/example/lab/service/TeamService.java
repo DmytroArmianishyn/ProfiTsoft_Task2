@@ -3,8 +3,10 @@ import com.example.lab.models.Team;
 import com.example.lab.models.dto.DtoPlayerInf;
 import com.example.lab.models.dto.DtoTeamId;
 import com.example.lab.models.dto.DtoTeamInf;
+import com.example.lab.models.dto.DtoTeamSearch;
 import com.example.lab.repository.PlayerRepository;
 import com.example.lab.repository.TeamRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
@@ -12,6 +14,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
@@ -100,13 +104,30 @@ public class TeamService {
             Cell team1 = row1.createCell(3);
             team1.setCellValue(players.get(i).getTeamName());
         }
-        FileOutputStream out = new FileOutputStream("D:\\Java\\Lab\\profiTsoft_Tsk2\\src\\main\\resources\\files\\test.xls");
-        wb.write(out);
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         wb.write(bos);
         wb.close();
-
         return bos.toByteArray();
+    }
+    /**
+     * Retrieves a list of players for a specified team and returns the result in JSON format along with information about the total number of pages.
+     * @param team The search criteria for players, including team ID, pagination details (from and size).
+     * @param mapper ObjectMapper instance used for JSON serialization.
+     * @return A JSON string containing the list of players and information about total pages.
+     */
+    @SneakyThrows
+    public String putlist(DtoTeamSearch team, ObjectMapper mapper){
 
+        Pageable pageable = PageRequest.of(team.getFrom(),team.getSize());
+        List<DtoPlayerInf> players = repository.findByTeam(team.getId(), pageable,"name") ;
+        int sub = team.getSize()-team.getFrom();
+        Long allplayers = repository.findAllCount(team.getId());
+        Long pages = ((allplayers-sub)/sub)+1;
+        StringBuilder json= new StringBuilder();
+        json.append(mapper.writeValueAsString(players));
+        json.append("totalPages:" + pages);
+        TeamService teamService = new TeamService();
+        teamService.report(players);
+        return json.toString();
     }
     }

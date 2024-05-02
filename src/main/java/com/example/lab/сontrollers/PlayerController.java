@@ -84,27 +84,8 @@ public class PlayerController {
     public void delete(@PathVariable int id){
         repository.deleteById(id);
     }
-    /**
-     * Retrieves a list of players for a specified team.
-     * @param team The search criteria for players.
-     * @return The list of players and total pages.
-     */
-    @SneakyThrows
-    @PostMapping("/api/team/_list")
-    public String putList(@RequestBody DtoTeamSearch team){
-        Pageable pageable = PageRequest.of(team.getFrom(),team.getSize());
-        List<DtoPlayerInf> players = repository.findByTeam(team.getId(), pageable,"name") ;
-        int sub = team.getSize()-team.getFrom();
-        Pageable countpages = PageRequest.of(team.getSize()+1,repository.findByTeam(team.getId()).size());
-       Long allplayer = repository.findAllCount(team.getId());
-        Long pages = (allplayer-sub)/sub;
-        StringBuilder json= new StringBuilder();
-        json.append(mapper.writeValueAsString(players));
-        json.append("totalPages:" + pages);
-        TeamService teamService = new TeamService();
-        teamService.report(players);
-        return json.toString();
-    }
+
+
     /**
      * Loads players from a file.
      * @param multipartFile The file containing player data.
