@@ -1,0 +1,32 @@
+[
+  {
+    "name": "Jason Tatum",
+    "position": "Forward",
+    "age": 24,
+    "team_id": 1
+  },
+  {
+    "name": "Julius Randle",
+    "position": "Forward",
+    "age": 27,
+    "team_id": 2
+  },
+  {
+    "name": "De'Aaron Fox",
+    "position": "Guard",
+    "age": 24,
+    "team_id": 3
+  },
+  {
+    "name": "Devin Booker",
+    "position": "Guard",
+    "age": 25,
+    "team_id": 1
+  },
+  {
+    "name": "Devin Booker",
+    "position": "Guard",
+    "age": 25,
+    "team_id": 1
+  }
+]
