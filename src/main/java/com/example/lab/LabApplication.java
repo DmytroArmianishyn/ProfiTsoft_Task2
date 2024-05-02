@@ -13,18 +13,7 @@ public class LabApplication {
     }
 
 
-/*
-spring.jpa.show-sql=true
-spring.jpa.hibernate.ddl-auto=none
-spring.liquibase.change-log=classpath:/db/changelog/changelog-master.sql
 
-     <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
-        </dependency>
-        import liquibase.integration.spring.SpringLiquibase;
-
- */
     }
 
 
