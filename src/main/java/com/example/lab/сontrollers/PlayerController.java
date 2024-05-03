@@ -2,9 +2,7 @@ package com.example.lab.сontrollers;
 
 
 import com.example.lab.models.dto.DtoAddPlayer;
-import com.example.lab.models.dto.DtoPlayerInf;
 import com.example.lab.models.dto.DtoTeamId;
-import com.example.lab.models.dto.DtoTeamSearch;
 import com.example.lab.repository.PlayerRepository;
 import com.example.lab.repository.TeamRepository;
 import com.example.lab.service.PlayerService;
@@ -14,14 +12,12 @@ import jakarta.validation.Valid;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import java.util.List;
+
 
 /**
  * This controller class handles HTTP requests related to players.
