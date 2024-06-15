@@ -60,6 +60,12 @@ public class PlayerController {
        return service.infPlayer(id);
     }
 
+//    @SneakyThrows
+//    @GetMapping("/api/player")
+//    public String getPlayersd(){
+//        return service;
+//    }
+
     /**
      * Updates player information.
      * @param id The ID of the player to update.

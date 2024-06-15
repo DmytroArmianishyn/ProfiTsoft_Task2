@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
@@ -31,6 +32,9 @@ public class PlayerService {
 
     @Autowired
     ObjectMapper mapper;
+
+    @Autowired
+    private KafkaTemplate<String,String> kafkaTemplate;
 
     /**
      * Adds a new player.
@@ -52,9 +56,17 @@ public class PlayerService {
     @SneakyThrows
     public String infPlayer(Long id){
 
+
         DtoPlayerInf player = repository.findPlayer(id);
+        kafkaTemplate.send("topic-email","some one search player with id " + id + " " + player.toString());
         return mapper.writeValueAsString(player);
     }
+//    @SneakyThrows
+//    public String infPlayer(){
+//
+//        DtoPlayerInf player = repository.findAll();
+//        return mapper.writeValueAsString(player);
+//    }
 
     /**
      * Updates an existing player.

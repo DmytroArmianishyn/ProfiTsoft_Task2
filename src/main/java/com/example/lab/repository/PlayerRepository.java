@@ -12,7 +12,7 @@
     @Repository
     public interface PlayerRepository extends JpaRepository<Player,Integer> {
         @Query("SELECT  new com.example.lab.models.dto.DtoPlayerInf(p.name,p.position,p.age,t.name) From Player p JOIN  p.team t where t.id=:team_id order by :category")
-        List<DtoPlayerInf> findByTeam(@Param("team_id") Long team_id, Pageable pageable, @Param("category") String category);
+            List<DtoPlayerInf> findByTeam(@Param("team_id") Long team_id, Pageable pageable, @Param("category") String category);
         @Query("SELECT new com.example.lab.models.dto.DtoPlayerInf(p.name, p.position, p.age, t.name) FROM Player p JOIN p.team t WHERE p.id = :id")
         DtoPlayerInf findPlayer(@Param("id") Long id);
         @Query("SELECT  new com.example.lab.models.dto.DtoPlayerInf(p.name,p.position,p.age,t.name) From Player p JOIN  p.team t where t.id=:team_id ")
